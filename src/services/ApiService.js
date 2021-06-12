@@ -90,7 +90,7 @@ const createRent = (rent) => {
 }
 
 const updateCarStatus = (id, stat) => {
-    return http.put(`/cars/updateStatus/${id}/${stat}`,{
+    return http.post(`/cars/updateStatus/${id}`,stat,{
         auth:{
         username: 'user',
         password: 'user'

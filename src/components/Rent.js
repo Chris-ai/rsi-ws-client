@@ -4,15 +4,18 @@ import { Switch, Route, Link } from "react-router-dom";
 import '@fortawesome/fontawesome-free'
 import '@fortawesome/react-fontawesome'
 
+
 const Rent = (props) => {
     const [rent, setRent] = useState([]);
     const rentRef = useRef();
-
+   
     rentRef.current = rent;
-
+    
     useEffect(() => {
         retrieveRent();
     }, [])
+
+   
 
     const retrieveRent = () => {
         ApiService.getRents()
@@ -50,6 +53,7 @@ const Rent = (props) => {
                                         <th style={{textAlign: 'center'}}>Id wypożyczenia</th>
                                         <th style={{textAlign: 'center'}}>Id rezerwacji</th>
                                         <th style={{textAlign: 'center'}}>Data rozpoczęcia</th>
+                                        <th style={{textAlign: 'center'}}>Samochód</th>
                                         <th style={{textAlign: 'center'}}>Czas wynajmu (min)</th>
                                         <th style={{textAlign: 'center', margin: 0}}>#===#</th>
                                     </tr>
@@ -64,6 +68,7 @@ const Rent = (props) => {
                                                     <td>{r.rentId}</td>
                                                     <td>{r.reservationId}</td>
                                                     <td>{r.startDate}</td>
+                                                    <td>{r.carInfo}</td>
                                                     <td>{r.rentTime}</td>
                                                     <td style={{fontWeight: 'bold'}}>
                                                         {/* Button delete */}

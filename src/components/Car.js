@@ -8,14 +8,7 @@ import axios from "axios";
 import Reservation from './Reservation'
 
 const Car = (props) => {
-
-    const initReservation = {
-        id: "",
-        carInfo: ""
-    }
-
     const [cars, setCars] = useState([]);
-    const [reservation, setReservation] = useState(initReservation);
     const carsRef = useRef();
     carsRef.current = cars;
 
@@ -42,29 +35,37 @@ const Car = (props) => {
         //REZERWACJA SAMOCHODU PRZEZ PRZYCISK "+"
         const id = carsRef.current[rowIndex].id;
 
-        // let car = {
-        //     id: "",
-        //     carBrand: "",
-        //     carModel: "",
-        //     productionYear: "",
-        //     price: 0,
-        //     status: 0,
-        // }
-
+        
         var data = {
-            id: id,
-            carInfo: reservation.carInfo
+            carId: id,
+            carInfo: ""
         }
+
+       let updatedCarStatus = {
+            carId: "",
+            carBrand: "",
+            carModel: "",
+            productionYear: "",
+            price: 0,
+            status: 0,
+        }
+
 
         cars.forEach( (element) => {
             if(element.id == id){
-                data.id = id
                 data.carInfo = element.carBrand + ' ' + element.carModel
+                updatedCarStatus.id = id
+                updatedCarStatus.carBrand = element.carBrand
+                updatedCarStatus.carModel = element.carModel
+                updatedCarStatus.productionYear = element.productionYear
+                updatedCarStatus.price = element.price
+                updatedCarStatus.status = 1
             }
         })
 
-        // ApiService.updateCarStatus(id, 1)
-        console.log(ApiService.updateCarStatus(id, 1)) //zarezerwowany
+        // console.log(updatedCarStatus)
+        ApiService.updateCar(id, updatedCarStatus)
+        
 
 
         if(carsRef.current[rowIndex].status == 0){

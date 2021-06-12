@@ -7,6 +7,7 @@ import '@fortawesome/react-fontawesome'
 const Reservation = (props) => {
     const [res, setRes] = useState([]);
     const resRef = useRef();
+
     const initialState = {
         time: 0
     };
@@ -34,21 +35,22 @@ const Reservation = (props) => {
         const id = resRef.current[rowIndex].reservationId;
         var data = {
             reservationId: id,
-            rentTime: state.time
+            rentTime: state.time,
+            carInfo: resRef.current[rowIndex].carInfo
         }
         if(state.time <= 0)
             alert("Czas musi wynosić więcej niż 0");
         else {
-            ApiService.createRent(data)
+          ApiService.createRent(data)
           .then(response => {
             console.log(response.data);
             props.history.push("/rents");
           })
           .catch(e => {
             console.log(e);
-          });
-        }        
+          });  
     }
+}
 
     const deleteReservation = (rowIndex) => {
         const id = resRef.current[rowIndex].reservationId;
@@ -88,7 +90,7 @@ const Reservation = (props) => {
                                     <tr>
                                         <th style={{textAlign: 'center'}}>Lp</th>
                                         <th style={{textAlign: 'center'}}>Id rezerwacji</th>
-                                        <th style={{textAlign: 'center'}}>Zarezerwowany samochód</th>
+                                        <th style={{textAlign: 'center'}}>Samochód</th>
                                         <th style={{textAlign: 'center', margin: 0}}>#===#</th>
                                     </tr>
                                 </thead>
@@ -121,6 +123,7 @@ const Reservation = (props) => {
                 </div>
     </div>
     );
+
 }
 
 export default Reservation;
