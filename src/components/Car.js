@@ -106,6 +106,15 @@ const Car = (props) => {
         
       };
 
+    const renderStatus = (status) => {
+        if(status == 2)
+            return <td>Wypożyczony</td>
+        if(status == 1)
+            return <td>Zarezerwowany</td>
+        if(status == 0)
+            return <td>Wolny</td>
+    }
+
     return(
         <div>
           <button className='btn btn-create' style={{backgroundColor: '#4B62E9', color:"#fff"}}>
@@ -141,7 +150,7 @@ const Car = (props) => {
                                                     <td>{car.carModel}</td>
                                                     <td>{car.productionYear}</td>
                                                     <td>{car.price}</td>
-                                                    <td>{car.status}</td>
+                                                    {renderStatus(car.status)}
                                                     <td style={{fontWeight: 'bold'}}>
                                                         {/* Button edit */}
                                                      <span onClick={() => editCar(index)}  style = {{background: "transparent",cursor:"pointer",color:"green", marginRight: '10px' ,border: 'none', color:'gray', fontSize: '20px'}}>

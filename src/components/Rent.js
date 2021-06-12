@@ -27,7 +27,15 @@ const Rent = (props) => {
 
     const deleteRent = (rowIndex) => {
         const id = rentRef.current[rowIndex].rentId;
+        const resId = rentRef.current[rowIndex].reservationId;
         ApiService.removeRent(id)
+          .then(response => {
+            console.log(response.data);
+          })
+          .catch(e => {
+            console.log(e);
+          });
+          ApiService.removeReservation(resId)
           .then(response => {
             console.log(response.data);
           })

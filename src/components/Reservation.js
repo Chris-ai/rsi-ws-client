@@ -32,22 +32,34 @@ const Reservation = (props) => {
 
     const rentCar = rowIndex => {
         const id = resRef.current[rowIndex].reservationId;
+        const carId = resRef.current[rowIndex].carId;
+        let status = 0;
         var data = {
             reservationId: id,
             rentTime: state.time
         }
-        if(state.time <= 0)
-            alert("Czas musi wynosić więcej niż 0");
-        else {
-            ApiService.createRent(data)
-          .then(response => {
-            console.log(response.data);
-            props.history.push("/rents");
-          })
-          .catch(e => {
-            console.log(e);
-          });
-        }        
+        
+        ApiService.getCarById(carId)
+            .then(response => {
+                console.log(response.data);
+                status = response.data.status;
+                if(state.time <= 0 || status != 1)
+                    alert("Czas musi wynosić więcej niż 0 lub samochód jest już wynajęty.");
+                else {
+                    ApiService.createRent(data)
+                        .then(response => {
+                            console.log(response.data);
+                            props.history.push("/rents");
+                        })
+                        .catch(e => {
+                        console.log(e);
+                    });
+            }  
+            })
+            .catch(e => {
+                console.log(e);
+            });
+              
     }
 
     const deleteReservation = (rowIndex) => {
