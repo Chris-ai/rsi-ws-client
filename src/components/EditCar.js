@@ -81,7 +81,6 @@ const EditCar = props => {
   return (
     <div>
         <div className="edit-form">
-          <h4>Tutorial</h4>
           <form>
           <div className="form-group">
                         <label htmlFor="carBrand">Marka samochodu</label>

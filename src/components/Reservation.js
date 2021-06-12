@@ -7,6 +7,7 @@ import '@fortawesome/react-fontawesome'
 const Reservation = (props) => {
     const [res, setRes] = useState([]);
     const resRef = useRef();
+
     const initialState = {
         time: 0
     };
@@ -36,7 +37,8 @@ const Reservation = (props) => {
         let status = 0;
         var data = {
             reservationId: id,
-            rentTime: state.time
+            rentTime: state.time,
+            carInfo: resRef.current[rowIndex].carInfo
         }
         
         ApiService.getCarById(carId)
@@ -100,7 +102,7 @@ const Reservation = (props) => {
                                     <tr>
                                         <th style={{textAlign: 'center'}}>Lp</th>
                                         <th style={{textAlign: 'center'}}>Id rezerwacji</th>
-                                        <th style={{textAlign: 'center'}}>Zarezerwowany samochód</th>
+                                        <th style={{textAlign: 'center'}}>Samochód</th>
                                         <th style={{textAlign: 'center', margin: 0}}>#===#</th>
                                     </tr>
                                 </thead>
@@ -133,6 +135,7 @@ const Reservation = (props) => {
                 </div>
     </div>
     );
+
 }
 
 export default Reservation;
