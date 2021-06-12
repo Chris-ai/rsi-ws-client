@@ -4,6 +4,7 @@ import { Switch, Route, Link } from "react-router-dom";
 import AddCar from "./AddCar";
 import '@fortawesome/fontawesome-free'
 import '@fortawesome/react-fontawesome'
+import axios from "axios";
 
 const Car = (props) => {
     const [cars, setCars] = useState([]);
@@ -19,7 +20,7 @@ const Car = (props) => {
         ApiService.getCars()
             .then((response) => {
                 setCars(response.data)
-                console.log(response.data)
+                console.log(response)
             })
             .catch((e) => {
                 console.log(e)
@@ -31,7 +32,24 @@ const Car = (props) => {
       };
 
     const reserveCar = rowIndex => {
-        //TU TRZEBA ZEDYTOWAĆ SAMOCHÓD I ODWOŁAĆ SIĘ DO ID :)
+        //REZERWACJA SAMOCHODU PRZEZ PRZYCISK "+"
+        const id = carsRef.current[rowIndex].id;
+        var data = {
+            carId: id
+        }
+        if(carsRef.current[rowIndex].status == 0){
+            ApiService.createReservation(data)
+          .then(response => {
+            console.log(response.data);
+            props.history.push("/reservations");
+          })
+          .catch(e => {
+            console.log(e);
+          });
+        }
+        else {
+            alert("Samochód jest już zajęty!")
+        }
     }  
 
     const editCar = rowIndex => {
@@ -42,14 +60,20 @@ const Car = (props) => {
 
     const deleteCar = (rowIndex) => {
         const id = carsRef.current[rowIndex].id;
+        if(carsRef.current[rowIndex].status != 0){
+            alert("Nie można usunąć samochodu. Jest zarezerwowany.");
+        } else {
         ApiService.removeCar(id)
-          .then(response => {
+        .then(response => {
             console.log(response.data);
             props.history.push("/cars");
           })
-          .catch(e => {
+        .catch(e => {
             console.log(e);
-          });
+        });
+        window.location.reload();
+        }
+        
       };
 
     return(
@@ -94,11 +118,11 @@ const Car = (props) => {
                                                             <i className="fa fa-edit" aria-hidden="true" style={{ marginRight: "5px" }} />
                                                      </span>
                                                         {/* Button delete */}
-                                                     <span onClick={() => deleteCar(index)} style = {{color:"red", background: "transparent",cursor:"pointer", border: 'none',marginRight: '10px' ,color:'gray', fontSize: '20px'}}>
+                                                     <span onClick={() => { if (window.confirm('Czy chcesz usunąć ten samochód?')) deleteCar(index) }} style = {{color:"red", background: "transparent",cursor:"pointer", border: 'none',marginRight: '10px' ,color:'gray', fontSize: '20px'}}>
                                                             <i className="fa fa-trash-o" aria-hidden="true" style={{ marginRight: "5px" }} /> 
                                                      </span> 
                                                         {/* Button reserve */}
-                                                     <span onClick={() => reserveCar(index)} style = {{color:"red",cursor:"pointer" ,background: "transparent", border: 'none',marginRight: '10px' ,color:'gray', fontSize: '20px'}}>
+                                                     <span onClick={() => {if (window.confirm('Czy chcesz zarezerwować ten samochód?')) reserveCar(index)}} style = {{color:"red",cursor:"pointer" ,background: "transparent", border: 'none',marginRight: '10px' ,color:'gray', fontSize: '20px'}}>
                                                             <i className="fa fa-plus" aria-hidden="true" style={{ marginRight: "5px" }} /> 
                                                      </span> 
                                                     </td>

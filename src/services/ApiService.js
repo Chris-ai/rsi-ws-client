@@ -1,4 +1,5 @@
 import http from '../auth.service';
+import axios from 'axios';
 
 const getCars = () => {
     return http.get('/cars/all', {
@@ -40,12 +41,66 @@ const removeCar = (id) => {
     }})
 }
 
+const getReservations = () => {
+    return http.get('/reservations/all', {
+        auth:{
+        username: 'user',
+        password: 'user'
+    }})
+}
+
+const createReservation = (res) => {
+    return http.post(`/reservations/create`, res,{
+        auth:{
+        username: 'user',
+        password: 'user'
+    }})
+}
+
+const removeReservation = (id) => {
+    return http.delete(`/reservations/delete/${id}`,{
+        auth:{
+        username: 'user',
+        password: 'user'
+    }})
+}
+
+const getRents = () => {
+    return http.get('/rents/all', {
+        auth:{
+        username: 'user',
+        password: 'user'
+    }})
+}
+
+const removeRent = (id) => {
+    return http.delete(`/rents/delete/${id}`,{
+        auth:{
+        username: 'user',
+        password: 'user'
+    }})
+}
+
+const createRent = (rent) => {
+    return http.post(`/rents/create`, rent,{
+        auth:{
+        username: 'user',
+        password: 'user'
+    }})
+}
+
 const ApiService = {
     getCars,
     getCarById,
     createCar,
     updateCar,
-    removeCar
+    removeCar,
+    createReservation,
+    getReservations,
+    removeReservation,
+    getRents,
+    removeRent,
+    createRent
 };
 
 

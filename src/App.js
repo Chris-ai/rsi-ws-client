@@ -3,13 +3,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Switch, Route, Link } from "react-router-dom";
 import CarComponent from "./components/Car";
 import AddCar from "./components/AddCar";
-import EditCar from './components/EditCar'
+import EditCar from './components/EditCar';
+import ReservationComponent from "./components/Reservation";
+import RentComponent from "./components/Rent";
 
 function App() {
   return (
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <a href="/" className="navbar-brand">
+        <a href="/cars" className="navbar-brand">
           Car Rental
         </a>
         <div className="navbar-nav mr-auto">
@@ -36,8 +38,8 @@ function App() {
           <Route exact path={["/cars"]} component = {CarComponent}/>
           <Route path={"/cars/add"} component={AddCar}/>
           <Route path={"/cars/:id"} component={EditCar}/>
-          <Route exact path="/reservations"/>
-          <Route exact path="/rents"/>
+          <Route exact path={["/reservations"]} component = {ReservationComponent}/>
+          <Route exact path={["/rents"]} component = {RentComponent}/>
         </Switch>
       </div>
     </div>

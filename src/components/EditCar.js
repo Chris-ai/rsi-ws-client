@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ApiService from "../services/ApiService";
 
-
 const EditCar = props => {
     
     const initialCarState = {
@@ -61,6 +60,7 @@ const EditCar = props => {
       .then(response => {
         console.log(response.data);
         setMessage("Samochód został poprawnie zedytowany!");
+        props.history.push("/cars");
       })
       .catch(e => {
         console.log(e);
@@ -71,7 +71,7 @@ const EditCar = props => {
     ApiService.removeCar(currentCar.id)
       .then(response => {
         console.log(response.data);
-        props.history.push("/cars");
+        window.location.reload();
       })
       .catch(e => {
         console.log(e);
@@ -80,7 +80,6 @@ const EditCar = props => {
 
   return (
     <div>
-      {currentCar ? (
         <div className="edit-form">
           <h4>Tutorial</h4>
           <form>
@@ -136,11 +135,6 @@ const EditCar = props => {
                         />
                     </div>
           </form>
-
-          <button className="badge badge-danger mr-2" onClick={deleteCar}>
-            Delete
-          </button>
-
           <button
             type="submit"
             className="badge badge-success"
@@ -148,14 +142,7 @@ const EditCar = props => {
           >
             Update
           </button>
-          <p>{message}</p>
         </div>
-      ) : (
-        <div>
-          <br />
-          <p>Please click on a Tutorial...</p>
-        </div>
-      )}
     </div>
   );
 };
