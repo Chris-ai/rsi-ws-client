@@ -88,7 +88,7 @@ const Reservation = (props) => {
                                     <tr>
                                         <th style={{textAlign: 'center'}}>Lp</th>
                                         <th style={{textAlign: 'center'}}>Id rezerwacji</th>
-                                        <th style={{textAlign: 'center'}}>Id samochodu</th>
+                                        <th style={{textAlign: 'center'}}>Zarezerwowany samochód</th>
                                         <th style={{textAlign: 'center', margin: 0}}>#===#</th>
                                     </tr>
                                 </thead>
@@ -100,7 +100,7 @@ const Reservation = (props) => {
                                                 <tr key={index} style={{textAlign:'center'}}>
                                                     <td>{index+1}</td>
                                                     <td>{r.reservationId}</td>
-                                                    <td>{r.carId}</td>
+                                                    <td>{r.carInfo}</td>
                                                     <td style={{fontWeight: 'bold'}}>
                                                         {/* Button delete */}
                                                      <span onClick={() => { if (window.confirm('Czy chcesz usunąć tą rezerwację?')) deleteReservation(index) }} style = {{color:"red", background: "transparent",cursor:"pointer", border: 'none',marginRight: '10px' ,color:'gray', fontSize: '20px'}}>

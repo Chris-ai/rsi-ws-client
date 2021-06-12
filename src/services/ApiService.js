@@ -89,6 +89,14 @@ const createRent = (rent) => {
     }})
 }
 
+const updateCarStatus = (id, stat) => {
+    return http.put(`/cars/updateStatus/${id}/${stat}`,{
+        auth:{
+        username: 'user',
+        password: 'user'
+    }})
+}
+
 const ApiService = {
     getCars,
     getCarById,
@@ -100,7 +108,8 @@ const ApiService = {
     removeReservation,
     getRents,
     removeRent,
-    createRent
+    createRent,
+    updateCarStatus
 };
 
 

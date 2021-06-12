@@ -5,11 +5,18 @@ import AddCar from "./AddCar";
 import '@fortawesome/fontawesome-free'
 import '@fortawesome/react-fontawesome'
 import axios from "axios";
+import Reservation from './Reservation'
 
 const Car = (props) => {
-    const [cars, setCars] = useState([]);
-    const carsRef = useRef();
 
+    const initReservation = {
+        id: "",
+        carInfo: ""
+    }
+
+    const [cars, setCars] = useState([]);
+    const [reservation, setReservation] = useState(initReservation);
+    const carsRef = useRef();
     carsRef.current = cars;
 
     useEffect(() => {
@@ -34,9 +41,32 @@ const Car = (props) => {
     const reserveCar = rowIndex => {
         //REZERWACJA SAMOCHODU PRZEZ PRZYCISK "+"
         const id = carsRef.current[rowIndex].id;
+
+        // let car = {
+        //     id: "",
+        //     carBrand: "",
+        //     carModel: "",
+        //     productionYear: "",
+        //     price: 0,
+        //     status: 0,
+        // }
+
         var data = {
-            carId: id
+            id: id,
+            carInfo: reservation.carInfo
         }
+
+        cars.forEach( (element) => {
+            if(element.id == id){
+                data.id = id
+                data.carInfo = element.carBrand + ' ' + element.carModel
+            }
+        })
+
+        // ApiService.updateCarStatus(id, 1)
+        console.log(ApiService.updateCarStatus(id, 1)) //zarezerwowany
+
+
         if(carsRef.current[rowIndex].status == 0){
             ApiService.createReservation(data)
           .then(response => {
