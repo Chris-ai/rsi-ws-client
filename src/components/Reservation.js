@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import ApiService from "../services/ApiService";
-import { Switch, Route, Link } from "react-router-dom";
 import '@fortawesome/fontawesome-free'
 import '@fortawesome/react-fontawesome'
 
@@ -43,9 +42,9 @@ const Reservation = (props) => {
         
         ApiService.getCarById(carId)
             .then(response => {
-                console.log(response.data);
                 status = response.data.status;
-                if(state.time <= 0 || status != 1)
+                console.log(status);
+                if(state.time <= 0 || status !== 1)
                     alert("Czas musi wynosić więcej niż 0 lub samochód jest już wynajęty.");
                 else {
                     ApiService.createRent(data)

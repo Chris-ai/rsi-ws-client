@@ -12,7 +12,6 @@ const EditCar = props => {
     };
 
   const [currentCar, setCurrentCar] = useState(initialCarState);
-  const [message, setMessage] = useState("");
 
   const getCar = id => {
     ApiService.getCarById(id)
@@ -59,19 +58,7 @@ const EditCar = props => {
     ApiService.updateCar(currentCar.id, currentCar)
       .then(response => {
         console.log(response.data);
-        setMessage("Samochód został poprawnie zedytowany!");
         props.history.push("/cars");
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
-
-  const deleteCar = () => {
-    ApiService.removeCar(currentCar.id)
-      .then(response => {
-        console.log(response.data);
-        window.location.reload();
       })
       .catch(e => {
         console.log(e);

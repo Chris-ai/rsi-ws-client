@@ -1,11 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import ApiService from "../services/ApiService";
-import { Switch, Route, Link } from "react-router-dom";
-import AddCar from "./AddCar";
+import { Link } from "react-router-dom";
 import '@fortawesome/fontawesome-free'
 import '@fortawesome/react-fontawesome'
-import axios from "axios";
-import Reservation from './Reservation'
 
 const Car = (props) => {
     const [cars, setCars] = useState([]);
@@ -26,10 +23,6 @@ const Car = (props) => {
                 console.log(e)
             })
     }
-
-    const refreshList = () => {
-        retrieveCars();
-      };
 
     const reserveCar = rowIndex => {
         //REZERWACJA SAMOCHODU PRZEZ PRZYCISK "+"
@@ -52,7 +45,7 @@ const Car = (props) => {
 
 
         cars.forEach( (element) => {
-            if(element.id == id){
+            if(element.id === id){
                 data.carInfo = element.carBrand + ' ' + element.carModel
                 updatedCarStatus.id = id
                 updatedCarStatus.carBrand = element.carBrand
@@ -68,7 +61,7 @@ const Car = (props) => {
         
 
 
-        if(carsRef.current[rowIndex].status == 0){
+        if(carsRef.current[rowIndex].status === 0){
             ApiService.createReservation(data)
           .then(response => {
             console.log(response.data);
@@ -91,7 +84,7 @@ const Car = (props) => {
 
     const deleteCar = (rowIndex) => {
         const id = carsRef.current[rowIndex].id;
-        if(carsRef.current[rowIndex].status != 0){
+        if(carsRef.current[rowIndex].status !== 0){
             alert("Nie można usunąć samochodu. Jest zarezerwowany.");
         } else {
         ApiService.removeCar(id)
@@ -108,11 +101,11 @@ const Car = (props) => {
       };
 
     const renderStatus = (status) => {
-        if(status == 2)
+        if(status === 2)
             return <td>Wypożyczony</td>
-        if(status == 1)
+        if(status === 1)
             return <td>Zarezerwowany</td>
-        if(status == 0)
+        if(status === 0)
             return <td>Wolny</td>
     }
 

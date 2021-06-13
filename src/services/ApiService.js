@@ -1,5 +1,4 @@
 import http from '../auth.service';
-import axios from 'axios';
 
 const getCars = () => {
     return http.get('/cars/all', {

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import ApiService from "../services/ApiService";
-import { Switch, Route, Link } from "react-router-dom";
 import '@fortawesome/fontawesome-free'
 import '@fortawesome/react-fontawesome'
 
